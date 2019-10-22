@@ -7,23 +7,56 @@
 	<meta http-equiv="X-UA-Compatible" content="ie=edge">
 	<title>Сервис коротких ссылок</title>
 
-	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
-	      integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+	<link rel="stylesheet" type="text/css" href="{{ asset('css/app.css') }}">
 </head>
 <body>
 
-	@foreach($urls as $url)
-		{{ $url->id }}
-	@endforeach
+	<div class="container">
+		{{--Добавление нового сокращения--}}
+		<form action="{{ route('site.urls.store') }}" class="card mt-3" method="post">
+			{!! csrf_field() !!}
 
-<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
-        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
-        crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
-        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
-        crossorigin="anonymous"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
-        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
-        crossorigin="anonymous"></script>
+			<div class="card-body">
+				<div class="form-group">
+					<label>Адрес для сокращения</label>
+					<input type="text" name="url" class="form-control" placeholder="http://yandex.ru" required>
+				</div>
+			</div>
+
+			<div class="card-footer">
+				<button type="submit" class="btn btn-primary">Сократить</button>
+			</div>
+		</form>
+
+		@if($createdUrl)
+			<div class="alert alert-success mt-5" role="alert">
+				Короткая ссылка создана: <strong>{{ env('APP_URL') }}/{{ $createdUrl->id }}</strong>
+			</div>
+		@endif
+
+		@if($urls->count())
+			<div class="card mt-5">
+				<table class="table table-striped table-hover">
+					<tr>
+						<th>Короткая ссылка</th>
+						<th>Оригинальная ссылка</th>
+						<th>Количество переходов</th>
+						<th>Дата создания</th>
+					</tr>
+					@foreach($urls as $url)
+						<tr>
+							<td>{{ env('APP_URL') }}/{{ $url->id }}</td>
+							<td>{{ $url->url }}</td>
+							<td class="text-right">{{ $url->conversion }}</td>
+							<td>{{ $url->created_at->format('d.m.Y H:i:s') }}</td>
+						</tr>
+					@endforeach
+				</table>
+			</div>
+
+		@endif
+	</div>
+
+	<script type="text/javascript" src="{{ asset('js/app.js') }}"></script>
 </body>
 </html>
