@@ -12,6 +12,11 @@ class Url extends Model
 	public $incrementing = false;
 
 
+	public function getShortUrl() {
+		return env('APP_URL') . '/' . $this->id;
+	}
+
+
 	protected static function boot() {
 		parent::boot();
 

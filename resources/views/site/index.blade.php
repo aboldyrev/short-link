@@ -45,7 +45,9 @@
 					</tr>
 					@foreach($urls as $url)
 						<tr>
-							<td>{{ env('APP_URL') }}/{{ $url->id }}</td>
+							<td>
+								<a target="_blank" href="{{ $url->getShortUrl() }}">{{ $url->getShortUrl() }}</a>
+							</td>
 							<td>{{ $url->url }}</td>
 							<td class="text-right">{{ $url->conversion }}</td>
 							<td>{{ $url->created_at->format('d.m.Y H:i:s') }}</td>
