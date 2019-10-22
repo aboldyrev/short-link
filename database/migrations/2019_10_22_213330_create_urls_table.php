@@ -17,7 +17,7 @@ class CreateUrlsTable extends Migration
 
 			$table->text('url');
 
-			$table->unsignedInteger('conversion');
+			$table->unsignedInteger('conversion')->default(0);
 
 			$table->timestamps();
 		});
