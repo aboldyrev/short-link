@@ -7,7 +7,7 @@ use Illuminate\Support\Str;
 
 class Url extends Model
 {
-	protected $fillable = [ 'url' ];
+	protected $fillable = [ 'url', 'conversion' ];
 
 	public $incrementing = false;
 

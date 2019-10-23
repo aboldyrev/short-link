@@ -27,13 +27,16 @@ class UrlController extends Controller
 	}
 
 
-	public function edit($id) {
-		//
-	}
+	public function update(Request $request, Url $url) {
+		if ($request->input('reset_conversion')) {
+			$url->conversion = 0;
+		}
 
+		$url->url = $request->input('url');
 
-	public function update(Request $request, $id) {
-		//
+		$url->save();
+
+		return back();
 	}
 
 
