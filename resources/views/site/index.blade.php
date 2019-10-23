@@ -76,6 +76,12 @@
 				</table>
 			</div>
 
+		@if($urls->lastPage() > 1)
+				<div class="mt-2">
+					{!! $urls->render() !!}
+				</div>
+		@endif
+
 		@endif
 	</div>
 
