@@ -36,12 +36,13 @@
 
 		@if($urls->count())
 			<div class="card mt-5">
-				<table class="table table-striped table-hover">
+				<table class="table table-striped table-hover mb-0">
 					<tr>
 						<th>Короткая ссылка</th>
 						<th>Оригинальная ссылка</th>
 						<th>Количество переходов</th>
 						<th>Дата создания</th>
+						<th></th>
 					</tr>
 					@foreach($urls as $url)
 						<tr>
@@ -51,6 +52,25 @@
 							<td>{{ $url->url }}</td>
 							<td class="text-right">{{ $url->conversion }}</td>
 							<td>{{ $url->created_at->format('d.m.Y H:i:s') }}</td>
+							<td>
+								<form class="btn-group btn-group-sm mt-2" action="{{ route('site.urls.delete', compact('url')) }}" method="post">
+									<button
+										type="button"
+										class="btn btn-primary"
+										data-update-url="{{ route('site.urls.update', compact('url')) }}"
+										data-url="{{ $url->url }}"
+									>Редактировать</button>
+
+									{!! csrf_field() !!}
+									{!! method_field('delete') !!}
+
+									<button
+										type="submit"
+										class="btn btn-danger"
+										data-delete-url
+									>Удалить</button>
+								</form>
+							</td>
 						</tr>
 					@endforeach
 				</table>

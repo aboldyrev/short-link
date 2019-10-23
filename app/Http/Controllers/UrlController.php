@@ -37,7 +37,9 @@ class UrlController extends Controller
 	}
 
 
-	public function destroy($id) {
-		//
+	public function delete(Url $url) {
+		$url->delete();
+
+		return back();
 	}
 }
